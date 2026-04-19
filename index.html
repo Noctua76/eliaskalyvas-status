@@ -1,39 +1,679 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el">
 <head>
-<meta charset="UTF-8">
-<title>Elias Kalyvas — Temporary Notice</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  text-align: center;
-}
-.container {
-  max-width: 600px;
-}
-h1 {
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-p {
-  font-size: 16px;
-  line-height: 1.6;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elias Kalyvas — Temporary Site Notice</title>
+  <meta
+    name="description"
+    content="Official temporary notice page for Elias Kalyvas. The website is currently undergoing restoration and security checks."
+  />
+  <style>
+    :root{
+      --bg:#0f1011;
+      --bg-2:#141517;
+      --card:#17181b;
+      --txt:#e7e7ea;
+      --muted:#a7abb3;
+      --line:#26292f;
+      --acc:#8a7fff;
+      --acc-2:#53baff;
+      --ok:#8fe3b0;
+      --warn:#ffd27d;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --max:1120px;
+    }
+
+    html{scroll-behavior:smooth}
+    *,*::before,*::after{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 800px at 80% -10%, #1b1d22 0%, var(--bg) 55%);
+      color:var(--txt);
+      font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .glow{
+      border:1px solid rgba(255,255,255,0.25);
+      box-shadow:0 0 12px rgba(255,255,255,0.10);
+    }
+
+    .glow-strong{
+      box-shadow:0 0 20px rgba(255,255,255,0.16);
+    }
+
+    .wrap{
+      max-width:var(--max);
+      margin-inline:auto;
+      padding:0 20px;
+    }
+
+    section{padding:64px 0}
+    @media (min-width:900px){
+      section{padding:88px 0}
+    }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:linear-gradient(180deg, rgba(15,16,17,.92), rgba(15,16,17,.68));
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      padding:18px 0;
+      gap:24px;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      line-height:1.1;
+      font-weight:900;
+      letter-spacing:.5px;
+      white-space:nowrap;
+      margin-right:32px;
+      font-size:1.25rem;
+    }
+
+    .brand small{
+      font-weight:600;
+      color:var(--muted);
+      opacity:.9;
+      font-size:.95rem;
+      line-height:1.2;
+      margin-top:4px;
+    }
+
+    .nav-links{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:24px;
+      flex-wrap:nowrap;
+    }
+
+    .nav-links a{
+      font-weight:500;
+      color:var(--muted);
+    }
+
+    .nav a:hover,.nav a:focus{
+      color:var(--txt);
+      outline:none;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      padding:.8rem 1.1rem;
+      border-radius:999px;
+      font-weight:700;
+      background:var(--acc);
+      color:#fff;
+      box-shadow:var(--shadow);
+      border:0;
+      cursor:pointer;
+      transition:transform .06s ease,filter .2s ease,box-shadow .2s ease;
+    }
+
+    .btn:active{transform:translateY(1px)}
+
+    .btn--ghost{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.18);
+      color:#f5f5f7;
+      box-shadow:none;
+    }
+
+    .btn--ghost:hover,.btn--ghost:focus{
+      border-color:rgba(255,255,255,0.32);
+      box-shadow:0 0 14px rgba(255,255,255,0.08);
+    }
+
+    .skip a{
+      position:absolute;
+      left:-9999px;
+      top:auto;
+      width:1px;
+      height:1px;
+      overflow:hidden;
+    }
+
+    .skip a:focus{
+      left:12px;
+      top:12px;
+      width:auto;
+      height:auto;
+      background:#000;
+      color:#fff;
+      padding:8px 10px;
+      border-radius:8px;
+      z-index:999;
+    }
+
+    .hero{
+      padding:88px 0 64px;
+      background:radial-gradient(600px 300px at 10% -10%, #1a1b20 0%, transparent 60%);
+    }
+
+    .hero-grid{
+      display:grid;
+      gap:22px;
+      align-items:center;
+    }
+
+    @media (min-width:980px){
+      .hero-grid{
+        grid-template-columns:1.15fr .85fr;
+        gap:34px;
+      }
+    }
+
+    .kicker{
+      color:var(--acc-2);
+      font-weight:800;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      font-size:13px;
+    }
+
+    .hero h1{
+      font-size:clamp(30px, 4.6vw, 54px);
+      line-height:1.12;
+      margin:10px 0 14px;
+      color:#f5f5f7;
+      text-shadow:0 0 12px rgba(255,255,255,0.06);
+      font-weight:800;
+      max-width:12ch;
+    }
+
+    .hero p.lead{
+      font-size:clamp(16px, 2.1vw, 20px);
+      color:#b3b6bc;
+      margin:0 0 22px;
+      max-width:62ch;
+    }
+
+    .cta{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .status-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:24px;
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .status-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+
+    .status-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.3px;
+      color:#111;
+      background:var(--warn);
+    }
+
+    .status-note{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .status-card h2{
+      margin:0 0 10px;
+      font-size:24px;
+      color:#f5f5f7;
+      line-height:1.25;
+    }
+
+    .status-card p{
+      margin:0 0 10px;
+      color:#b3b6bc;
+    }
+
+    .status-list{
+      display:grid;
+      gap:10px;
+      margin:18px 0 0;
+      padding:0;
+      list-style:none;
+    }
+
+    .status-list li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:#d7dae0;
+      padding:12px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,0.025);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .status-list strong{
+      color:#fff;
+    }
+
+    .section-title{
+      font-size:clamp(22px, 3vw, 32px);
+      margin:0 0 10px;
+      color:#f5f5f7;
+      font-weight:800;
+      text-shadow:0 0 12px rgba(255,255,255,0.06);
+    }
+
+    .section-sub{
+      color:var(--muted);
+      margin:0 0 28px;
+      max-width:70ch;
+    }
+
+    .about{
+      background:var(--bg-2);
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
+
+    .grid-2{
+      display:grid;
+      gap:22px;
+    }
+
+    @media (min-width:900px){
+      .grid-2{
+        grid-template-columns:1fr 1.2fr;
+        gap:40px;
+      }
+    }
+
+    .avatar{
+      aspect-ratio:1/1;
+      border-radius:20px;
+      overflow:hidden;
+      background:linear-gradient(180deg,#1a1b20,#111214);
+      min-height:320px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+
+    .avatar-inner{
+      width:100%;
+      height:100%;
+      border-radius:18px;
+      background:
+        radial-gradient(400px 200px at 50% 0%, rgba(83,186,255,.14), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid rgba(255,255,255,.08);
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-start;
+      padding:22px;
+    }
+
+    .avatar-inner span{
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.3px;
+      color:#7ab8ff;
+      border:1px solid rgba(122,184,255,.28);
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(122,184,255,.08);
+    }
+
+    .chip{
+      display:inline-block;
+      padding:.25rem .6rem;
+      font-size:12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      margin-top:10px;
+    }
+
+    .cards{
+      display:grid;
+      gap:16px;
+    }
+
+    @media (min-width:720px){
+      .cards{
+        grid-template-columns:repeat(3,1fr);
+      }
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height:180px;
+      transition:transform .15s ease,border-color .2s ease,box-shadow .2s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-2px);
+      border-color:#3a3f48;
+      box-shadow:0 12px 26px rgba(0,0,0,.35);
+    }
+
+    .card h3{
+      margin:0;
+      font-size:20px;
+      color:#f5f5f7;
+      font-weight:700;
+      text-shadow:0 0 10px rgba(255,255,255,0.05);
+    }
+
+    .card p{
+      margin:0;
+      color:#b3b6bc;
+      line-height:1.5;
+    }
+
+    .philosophy{
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      background:
+        radial-gradient(900px 300px at 80% 10%, rgba(138,127,255,.08), transparent 60%),
+        radial-gradient(900px 260px at 10% 90%, rgba(83,186,255,.07), transparent 60%),
+        var(--bg-2);
+      text-align:center;
+    }
+
+    blockquote{
+      font-size:clamp(22px,3.2vw,36px);
+      line-height:1.3;
+      margin:0 0 10px;
+      font-weight:800;
+    }
+
+    .philosophy p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .contact{
+      background:var(--bg-2);
+      border-top:1px solid var(--line);
+    }
+
+    .box{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+
+    .links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      margin-top:12px;
+    }
+
+    .link-btn{
+      padding:.7rem 1rem;
+      border-radius:999px;
+      border:1px solid var(--line);
+      color:var(--txt);
+      transition:border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .link-btn:hover{
+      border-color:#3a3f48;
+      box-shadow:0 0 12px rgba(255,255,255,0.06);
+    }
+
+    .site-footer{
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .foot{
+      display:flex;
+      gap:12px;
+      justify-content:space-between;
+      padding:18px 0;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:768px){
+      .nav{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:12px;
+      }
+
+      .nav-links{
+        margin-left:0;
+        justify-content:flex-start;
+        flex-wrap:wrap;
+        gap:12px;
+      }
+
+      .hero{
+        padding-top:48px;
+      }
+
+      .foot{
+        padding-bottom:34px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <h1>Temporarily Unavailable</h1>
-  <p>This website is temporarily unavailable due to a technical issue.</p>
-  <p>We are currently restoring the system and ensuring everything is fully secure.</p>
-  <p>The site will be back online shortly.</p>
-</div>
+  <p class="skip"><a href="#main">Skip to content</a></p>
+
+  <header class="site-header">
+    <div class="wrap nav">
+      <div class="brand">
+        ELIAS KALYVAS
+        <small>Learning &amp; Development with AI</small>
+      </div>
+
+      <nav class="nav-links" aria-label="Κύρια πλοήγηση">
+        <a href="#notice">Status</a>
+        <a href="#about">Σχετικά</a>
+        <a href="#focus">Τι συμβαίνει</a>
+        <a href="#contact" class="btn btn--ghost">Επικοινωνία</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="notice">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="kicker">Official Notice · Temporary Public Page</span>
+          <h1>The site is temporarily unavailable.</h1>
+          <p class="lead">
+            The main website is currently under restoration and security review.
+            This temporary page is now the official public point of access until the system is fully restored.
+          </p>
+
+          <div class="cta">
+            <a href="#contact" class="btn">Get in Touch</a>
+            <a href="#about" class="btn btn--ghost">View Profile</a>
+          </div>
+        </div>
+
+        <aside class="status-card glow glow-strong" aria-label="Current status">
+          <div class="status-top">
+            <span class="status-badge">Temporary Notice</span>
+            <span class="status-note">Live status page</span>
+          </div>
+
+          <h2>Restoration is in progress.</h2>
+          <p>
+            The website is being reviewed and restored with emphasis on integrity,
+            continuity, and controlled reactivation.
+          </p>
+
+          <ul class="status-list">
+            <li>
+              <span>•</span>
+              <span><strong>Current state:</strong> the main website remains offline while checks are completed.</span>
+            </li>
+            <li>
+              <span>•</span>
+              <span><strong>Public access:</strong> this page is the active temporary front-facing version of the site.</span>
+            </li>
+            <li>
+              <span>•</span>
+              <span><strong>Next step:</strong> full restoration will follow after server-level verification is completed.</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="wrap grid-2">
+        <div class="avatar glow" aria-hidden="true">
+          <div class="avatar-inner">
+            <span>Learning · Strategy · AI</span>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="section-title">Ποιος είμαι</h2>
+          <p class="section-sub">
+            Learning &amp; Development Specialist | AI Strategy Consultant
+          </p>
+
+          <p>
+            I design systems that connect learning, business growth, and intelligent tools.
+            My work focuses on clarity, strategic thinking, leadership development, and the practical use of AI inside real workflows.
+          </p>
+
+          <p>
+            This page remains online so visitors, collaborators, and clients can still identify who I am,
+            understand the current situation, and stay connected while the main platform is being restored.
+          </p>
+
+          <p class="chip">Founder · Strategist · Mentor · AI Builder</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="focus">
+      <div class="wrap">
+        <h2 class="section-title">Τι συμβαίνει τώρα</h2>
+        <p class="section-sub">
+          The current interruption is technical in nature. The website is being restored in a controlled way,
+          with priority on system integrity before full reactivation.
+        </p>
+
+        <div class="cards">
+          <article class="card glow">
+            <h3>Controlled Communication</h3>
+            <p>
+              This temporary page ensures that visitors see a clean and official notice instead of uncertainty or broken access.
+            </p>
+          </article>
+
+          <article class="card glow">
+            <h3>System Review</h3>
+            <p>
+              The original environment remains under review until the necessary checks are completed at server level.
+            </p>
+          </article>
+
+          <article class="card glow">
+            <h3>Return with Clarity</h3>
+            <p>
+              The goal is not just to bring the site back online, but to restore it properly and reintroduce it with confidence.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="philosophy">
+      <div class="wrap">
+        <blockquote>Clarity first. Then restoration. Then growth.</blockquote>
+        <p>
+          Behind the scenes, the system is being rebuilt with greater control, cleaner structure, and stronger foundations.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="wrap">
+        <div class="box glow glow-strong">
+          <h2 class="section-title">Stay connected</h2>
+          <p class="section-sub">
+            For professional inquiries, collaborations, or direct communication, use the links below.
+          </p>
+
+          <div class="cta" style="justify-content:center;margin-top:10px">
+            <a href="mailto:info@eliaskalyvas.gr" class="btn btn--ghost">info@eliaskalyvas.gr</a>
+            <a href="https://calendly.com/eliaskalyvas" target="_blank" rel="noopener noreferrer" class="btn">Schedule a Call</a>
+          </div>
+
+          <div class="links">
+            <a class="link-btn" href="https://www.linkedin.com/in/eliaskalyvas/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="link-btn" href="https://www.mentoring-club.com/profiles/elias-kalyvas" target="_blank" rel="noopener noreferrer">Mentoring Club</a>
+            <a class="link-btn" href="https://www.facebook.com/elias.kalivas.3/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <div>© <span id="y"></span> Elias Kalyvas — All rights reserved</div>
+      <div>Learning = Growth = Strategy = Creation</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
